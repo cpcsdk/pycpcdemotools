@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from distutils.core import setup
+
+setup(name='cpcdemotools',
+      version='0.1',
+      description='Python tools for Amstrad CPC demoscene projects',
+      author='Romain Giot',
+      author_email='giot.romain@gmail.com',
+      url='http://www.python.org/sigs/distutils-sig/',
+      packages=['cpcdemotools', 'cpcdemotools.source_checker'],
+      scripts=['cpcdemotools/source_checker/z80_syntax_checker.py']
+     )
+
+#!/usr/bin/env python
+
+
+# metadata
+__author__ = 'Romain Giot'
+__copyright__ = 'Copyright 2012, Romain Giot'
+__credits__ = ['Romain Giot']
+__licence__ = 'GPL'
+__version__ = '0.1'
+__maintainer__ = 'Romain Giot'
+__email__ = 'giot.romain@gmail.com'
+__status__ = 'Prototype'
+
