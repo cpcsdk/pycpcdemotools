@@ -16,6 +16,7 @@ Syntax checking is not supposed to be perfect and efficient.
 But it can quickly detect some errors.
 """
 # TODO add: ex de, hl ; push sp ; add a
+# TODO remove duplciate alert when set is used
 
 # imports
 import sys, os

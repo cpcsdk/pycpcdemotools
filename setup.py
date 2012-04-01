@@ -9,11 +9,19 @@ setup(name='cpcdemotools',
       author='Romain Giot',
       author_email='giot.romain@gmail.com',
       url='http://www.python.org/sigs/distutils-sig/',
-      packages=['cpcdemotools', 'cpcdemotools.source_checker'],
-      scripts=['cpcdemotools/source_checker/z80_syntax_checker.py']
+      packages=[
+          'cpcdemotools', 
+          'cpcdemotools.source_checker',
+          'cpcdemotools.sound'
+      ],
+      scripts=[
+          'cpcdemotools/source_checker/z80_syntax_checker.py',
+          'cpcdemotools/source_checker/vasm_symbols.py',
+          'cpcdemotools/sound/ymreader.py'
+
+      ]
      )
 
-#!/usr/bin/env python
 
 
 # metadata

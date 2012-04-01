@@ -15,6 +15,7 @@ vasm_symbols fname [label]
 
 # imports
 import sys
+import re
 
 # code
 if __name__ == '__main__':
@@ -47,16 +48,18 @@ if __name__ == '__main__':
         symbols[label] = value
         
 
-    # TODO filter with regex (no need to type the whole label)
-    if len(sys.argv) == 3:
-        label = sys.argv[2]
-        if label in symbols:
-            print "%s\tequ %s" % (label, symbols[label][1:-1])
-        else:
-            sys.stderr.write('Label "%s" not present\n' % label)
-    else:
+    if len(sys.argv) == 3: # Search according to a REGEX
+        search = re.compile(sys.argv[2])
+
+        # Filter labels
+        for label in sorted(symbols.keys()):
+            if re.search(search, label):
+                print "%s\tequ %s" % (label, symbols[label][1:-1])
+    else: # Display all
         for label in sorted(symbols.keys()):
             print "%s\tequ %s" % (label, symbols[label][1:-1])
+
+
 # metadata
 __author__ = 'Krusty/Benediction'
 __copyright__ = 'Copyright 2013, Benediction'
