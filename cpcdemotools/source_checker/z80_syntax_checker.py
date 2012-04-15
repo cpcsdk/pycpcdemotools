@@ -17,6 +17,7 @@ But it can quickly detect some errors.
 """
 # TODO add: ex de, hl ; push sp ; add a
 # TODO remove duplciate alert when set is used
+# TODO raise errors when instructions use hl and ix together
 
 # imports
 import sys, os

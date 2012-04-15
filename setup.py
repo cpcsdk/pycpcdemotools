@@ -12,12 +12,14 @@ setup(name='cpcdemotools',
       packages=[
           'cpcdemotools', 
           'cpcdemotools.source_checker',
-          'cpcdemotools.sound'
+          'cpcdemotools.sound',
+          'cpcdemotools.curves'
       ],
       scripts=[
           'cpcdemotools/source_checker/z80_syntax_checker.py',
           'cpcdemotools/source_checker/vasm_symbols.py',
-          'cpcdemotools/sound/ymreader.py'
+          'cpcdemotools/sound/ymreader.py',
+          'cpcdemotools/curves/curves256.py'
 
       ]
      )
