@@ -85,7 +85,7 @@ class Z80_Parser(object):
                 self.emit_error(load_line, max(line.find('LD'), line.find('ld')), 'Register %s not loaded' % register)
 
 
-    def check_labels(self, lines, min_width=8, max_width=30):
+    def check_labels(self, lines, min_width=8, max_width=50):
         """Check the validity of labels.
           -  Duplicates
           - Size
