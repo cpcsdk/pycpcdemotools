@@ -106,7 +106,7 @@ class Z80_Parser(object):
                     real_label = label
                     latest_parent = label
 
-                # Check if exists
+                # Check if label already exists
                 if real_label in labels:
                     self.emit_error(label_line, 1, 'Label %s already exists' \
                                % real_label)
@@ -114,7 +114,7 @@ class Z80_Parser(object):
                     labels.append(real_label)
 
                 # Check size validity
-                if len(label) < min_width:
+                if len(label) < min_width and label[0]!='.': #do not test for local ones
                     self.emit_warning(label_line, 1, 'Label %s too short' % label)
                 elif len(label) > max_width:
                     self.emit_warning(label_line, 1, 'Label %s too long' % label)
