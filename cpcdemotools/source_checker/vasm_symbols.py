@@ -16,15 +16,50 @@ vasm_symbols fname [label]
 # imports
 import sys
 import re
+import glob
+import os
 
 # code
-if __name__ == '__main__':
-    if len(sys.argv) not in (2,3):
-        sys.stderr.write('Error!\nUsage\t%s filename [symbol]\n' % sys.argv[0])
-        exit(-1)
+
+def interactive_mode():
+    """Launch the interactive mode.
+    TODO find a way to use it
+    """
+    print 'Welcome to the interactive mode'
+    print 'Type "?help" for list of commands'
+
+    file_search = '*.o.test'
+    while True:
+        command = raw_input('Command > ')
+
+        if command.startswith('?'):
+            if command == '?quit':
+                break
+            elif command.startswith('?os '):
+                os.system(command[4:])
+            elif command == '?file_search':
+                print 'file_search = %s' % file_search
+                print str(glob.glob(file_search))
+            elif command.startswith('?set_file_search '):
+                file_search = command[len('?set_file_search '):]
+            elif command == '?help':
+                print '?help\tDisplay help'
+                print '?quit\tQuit the interpreter'
+                print '?os <cmd>\tLaunch the command <cmd> from the os'
+                print '?file_search\tDisplay the file search pattern'
+                print '?set_file_search <pattern>\tChange the file search'
+                print '<label>\tSearch the label in all the file search'
+            continue
+        
+
+        for fname in glob.glob(file_search):
+            treat_file(fname, command)
 
 
-    fname = sys.argv[1]
+def treat_file(fname, _filter=None):
+    """Launch the research process for the required file.
+    TODO move filter/display
+    """ 
     f = open(fname)
 
     symbols = {}
@@ -48,17 +83,46 @@ if __name__ == '__main__':
         symbols[label] = value
         
 
-    if len(sys.argv) == 3: # Search according to a REGEX
-        search = re.compile(sys.argv[2])
+    if _filter is not None: # Search according to a REGEX
+        search = re.compile(_filter)
 
         # Filter labels
+        fname_printed = False
         for label in sorted(symbols.keys()):
             if re.search(search, label):
+                if not fname_printed:
+                    print ';', fname
+                    fname_printed = True
                 print "%s\tequ %s" % (label, symbols[label][1:-1])
+
     else: # Display all
+
+        if symbols.keys():
+            print ';', fname
+
         for label in sorted(symbols.keys()):
             print "%s\tequ %s" % (label, symbols[label][1:-1])
 
+
+
+if __name__ == '__main__':
+    if len(sys.argv) not in (1,2,3):
+        sys.stderr.write('Error!\nUsage\t%s [filename [symbol]]\n' % sys.argv[0])
+        exit(-1)
+
+
+    if len(sys.argv) > 1:
+        # We have selected at least one filename
+
+        fname = sys.argv[1]
+        if len(sys.argv) == 3:
+            treat_file(fname, sys.argv[2])
+        else:
+            treat_file(fname)
+
+
+    else:
+        interactive_mode()
 
 # metadata
 __author__ = 'Krusty/Benediction'
