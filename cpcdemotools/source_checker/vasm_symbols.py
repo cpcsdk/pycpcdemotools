@@ -29,6 +29,7 @@ def interactive_mode():
     print 'Type "?help" for list of commands'
 
     file_search = '*.o.test'
+    last_command = ''
     while True:
         command = raw_input('Command > ')
 
@@ -37,11 +38,15 @@ def interactive_mode():
                 break
             elif command.startswith('?os '):
                 os.system(command[4:])
+                continue
             elif command == '?file_search':
                 print 'file_search = %s' % file_search
                 print str(glob.glob(file_search))
+                continue
             elif command.startswith('?set_file_search '):
                 file_search = command[len('?set_file_search '):]
+                continue
+
             elif command == '?help':
                 print '?help\tDisplay help'
                 print '?quit\tQuit the interpreter'
@@ -49,12 +54,14 @@ def interactive_mode():
                 print '?file_search\tDisplay the file search pattern'
                 print '?set_file_search <pattern>\tChange the file search'
                 print '<label>\tSearch the label in all the file search'
-            continue
-        
+                continue
+            elif command == '??':
+                command = last_command
 
         for fname in glob.glob(file_search):
             treat_file(fname, command)
 
+        last_command = command
 
 def treat_file(fname, _filter=None):
     """Launch the research process for the required file.
