@@ -91,19 +91,21 @@ def treat_file(fname, _filter=None):
         
 
     if _filter is not None: # Search according to a REGEX or a value
-        search = re.compile(_filter)
+        try:
+            search = re.compile(_filter)
 
-        # Filter labels
-        fname_printed = False
+            # Filter labels
+            fname_printed = False
 
-        for label in sorted(symbols.keys()):
-            if re.search(search, label) or re.search(search, symbols[label]):
-                if not fname_printed:
-                    print ';', fname
-                    fname_printed = True
-                print "%s\tequ %s" % (label, symbols[label][1:-1])
+            for label in sorted(symbols.keys()):
+                if re.search(search, label) or re.search(search, symbols[label]):
+                    if not fname_printed:
+                        print ';', fname
+                        fname_printed = True
+                    print "%s\tequ %s" % (label, symbols[label][1:-1])
 
-
+        except:
+            pass
 
     else: # Display all
 
