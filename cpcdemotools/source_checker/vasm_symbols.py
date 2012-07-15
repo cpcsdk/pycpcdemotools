@@ -87,7 +87,9 @@ def treat_file(fname, _filter=None):
 
         assert label not in symbols
 
-        symbols[label] = value
+        # Remove temporary labels
+        if label[0] != '*':
+            symbols[label] = value
         
 
     if _filter is not None: # Search according to a REGEX or a value
