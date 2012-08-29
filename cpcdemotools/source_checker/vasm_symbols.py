@@ -3,7 +3,7 @@
 
 """Extract symbols from a.out output of vasm.
 
-Allows to get the value of various symbols in the `a.out` output of `vasm`.
+Allows to get the value of various symbols in the lst output of `vasm`.
 This script has been created because vasm does not build a listing file as
 most z80 assemblers allowing to see sources and binary together (and thus values of labels).
 
@@ -28,7 +28,7 @@ def interactive_mode():
     print 'Welcome to the interactive mode'
     print 'Type "?help" for list of commands'
 
-    file_search = '*.o.test'
+    file_search = '*.lst'
     last_command = ''
     while True:
         command = raw_input('Command > ')
@@ -71,16 +71,17 @@ def treat_file(fname, _filter=None):
 
     symbols = {}
     for line in f.readlines():
-        if -1 == line.find('symbol:'):
+        #TODO manage EXPR when possible
+        if (-1 == line.find(' LAB ')):
             continue
 
         # Extract parts from screen
         parts = line.split()
         # Get label
-        if parts[3] == 'LAB':
-            label = parts[2]
+        if parts[1].startswith('.'):
+            label = parts[0]+parts[1]
         else:
-            label = parts[2]+parts[3]
+            label = parts[0]
 
         # Get value
         value = parts[-2]
