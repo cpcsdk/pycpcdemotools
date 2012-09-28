@@ -77,16 +77,38 @@ def treat_file(fname, _filter=None):
 
         # Extract parts from screen
         parts = line.split()
+
         # Get label
-        if parts[1].startswith('.'):
-            label = parts[0]+parts[1]
-        else:
-            label = parts[0]
+        label = parts[parts.index('LAB')-1]
+        if label[0] == '.':
+            label=parts[parts.index('LAB')-2] + label
+
+        # Correct erroneous labels
+        if ',' in label:
+            assert ')' in parts[-1]
+            assert '(' in label
+            label = label.split(',')[-1]
 
         # Get value
-        value = parts[-2]
+        value = parts[-2] 
+        
+        # Skip this one, it will be redifined later
+        if value.startswith('sec='):
+            continue
 
-        assert label not in symbols
+        #value = value[1:-1]?
+        
+        # Check duplicates
+        if label in symbols:
+            if symbols[label] != value:
+                print 'LINE', parts
+                print 'LABEL', label
+                print 'VALUE', value
+                print
+                print "We have already met %s => %s "% (label, symbols[label])
+                exit(-1)
+            else:
+                continue
 
         # Remove temporary labels
         if label[0] != '*':
