@@ -13,13 +13,16 @@ setup(name='cpcdemotools',
           'cpcdemotools', 
           'cpcdemotools.source_checker',
           'cpcdemotools.sound',
-          'cpcdemotools.curves'
+          'cpcdemotools.curves',
+          'cpcdemotools.graph',
+
       ],
       scripts=[
           'cpcdemotools/source_checker/z80_syntax_checker.py',
           'cpcdemotools/source_checker/vasm_symbols.py',
           'cpcdemotools/sound/ymreader.py',
-          'cpcdemotools/curves/curves256.py'
+          'cpcdemotools/curves/curves256.py',
+          'cpcdemotools/graph/extract_pal.py'
 
       ]
      )
