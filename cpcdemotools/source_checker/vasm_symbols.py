@@ -75,28 +75,22 @@ def treat_file(fname, _filter=None):
         if (-1 == line.find(' LAB ')):
             continue
 
-        # Extract parts from screen
+        # Extract parts from line
         parts = line.split()
 
-        # Get label
-        label = parts[parts.index('LAB')-1]
-        if label[0] == '.':
-            label=parts[parts.index('LAB')-2] + label
 
-        # Correct erroneous labels
-        if ',' in label:
-            assert ')' in parts[-1]
-            assert '(' in label
-            label = label.split(',')[-1]
+        # Get label
+        label = parts[0]
+        if parts[1] != 'LAB':
+            label=label + '.' + parts[1]
 
         # Get value
-        value = parts[-2] 
+        value = parts[parts.index('LAB')+1] 
         
         # Skip this one, it will be redifined later
         if value.startswith('sec='):
             continue
 
-        #value = value[1:-1]?
         
         # Check duplicates
         if label in symbols:
@@ -111,7 +105,7 @@ def treat_file(fname, _filter=None):
                 continue
 
         # Remove temporary labels
-        if label[0] != '*':
+        if label[0] != '*' and label[-1] != '*':
             symbols[label] = value
         
 
