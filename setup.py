@@ -22,7 +22,8 @@ setup(name='cpcdemotools',
           'cpcdemotools/source_checker/vasm_symbols.py',
           'cpcdemotools/sound/ymreader.py',
           'cpcdemotools/curves/curves256.py',
-          'cpcdemotools/graph/extract_pal.py'
+          'cpcdemotools/graph/extract_pal.py',
+          'cpcdemotools/crtc/crtc_transitions_helper.py'
 
       ]
      )
