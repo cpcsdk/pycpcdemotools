@@ -14,7 +14,7 @@ setup(name='cpcdemotools',
           'cpcdemotools.source_checker',
           'cpcdemotools.sound',
           'cpcdemotools.curves',
-          'cpcdemotools.graph',
+ #         'cpcdemotools.graph',
 
       ],
       scripts=[
@@ -22,7 +22,7 @@ setup(name='cpcdemotools',
           'cpcdemotools/source_checker/vasm_symbols.py',
           'cpcdemotools/sound/ymreader.py',
           'cpcdemotools/curves/curves256.py',
-          'cpcdemotools/graph/extract_pal.py',
+  #        'cpcdemotools/graph/extract_pal.py',
           'cpcdemotools/crtc/crtc_transitions_helper.py'
 
       ]
