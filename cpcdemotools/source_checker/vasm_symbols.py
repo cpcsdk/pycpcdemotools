@@ -71,24 +71,41 @@ def treat_file(fname, _filter=None):
 
     symbols = {}
     for line in f.readlines():
-        #TODO manage EXPR when possible
-        if (-1 == line.find(' LAB ')):
-            continue
 
-        # Extract parts from line
-        parts = line.split()
+        if -1 != line.find(' LAB '):
+
+            # Extract parts from line
+            parts = line.split()
 
 
-        # Get label
-        label = parts[0]
-        if parts[1] != 'LAB':
-            label=label + '.' + parts[1]
+            # Get label
+            label = parts[0]
+            if parts[1] != 'LAB':
+                label=label + '.' + parts[1]
 
-        # Get value
-        value = parts[parts.index('LAB')+1] 
-        
-        # Skip this one, it will be redifined later
-        if value.startswith('sec='):
+            # Get value
+            value = parts[parts.index('LAB')+1] 
+            
+            # Skip this one, it will be redifined later
+            if value.startswith('sec='):
+                continue
+            if value.startswith('('):
+                value = value[1:-1]
+            value = int(value, 0)
+        elif -1 != line.find("EXPR("):
+            parts = line.split()
+            if parts[-2] == 'INTERNAL' and parts[-1] == 'ABS': continue
+            if parts[-1] == 'INTERNAL': continue
+            if parts[-1] == 'ABS':
+                parts = parts[:-1]
+
+            if 3<=len(parts):
+                label = ".".join(parts[:-1])
+            else:
+                label = parts[0]
+            label = label.strip()
+            value = int(parts[-1][len("EXPR("):-1])
+        else:
             continue
 
         
@@ -121,7 +138,7 @@ def treat_file(fname, _filter=None):
                     if not fname_printed:
                         print ';', fname
                         fname_printed = True
-                    print "%s\tequ %s" % (label, symbols[label][1:-1])
+                    print "%s\tequ 0x%x" % (label, symbols[label])
 
         except:
             pass
@@ -132,7 +149,7 @@ def treat_file(fname, _filter=None):
             print ';', fname
 
         for label in sorted(symbols.keys()):
-            print "%s\tequ %s" % (label, symbols[label][1:-1])
+            print "%s\tequ 0x%x" % (label, symbols[label])
 
 
 
