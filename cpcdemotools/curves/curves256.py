@@ -4,6 +4,8 @@
 """Curve generator.
 
 Build curves that fit in 256 bytes.
+Parameters
+ i, step
 """
 
 # imports
@@ -18,6 +20,7 @@ def scale_input(i):
 def get_value(a, exp):
     """Compute the value in the expression `expr` at indice `i`"""
     i = scale_input(a)
+    step = a
     return eval(exp)
 
 def get_values(exp):
