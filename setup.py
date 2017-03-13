@@ -14,7 +14,8 @@ setup(name='cpcdemotools',
           'cpcdemotools.source_checker',
           'cpcdemotools.sound',
           'cpcdemotools.curves',
- #         'cpcdemotools.graph',
+          'cpcdemotools.graph',
+          'cpcdemotools.screen',
 
       ],
       scripts=[
