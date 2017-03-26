@@ -55,7 +55,10 @@ if __name__ == '__main__':
     plt.xlabel('Byte')
     plt.ylabel('Position')
     plt.legend()
-    plt.show()
+    try:
+        plt.show()
+    except:
+        pass
 
     validate_values(integers)
     build_z80(exp, integers)
