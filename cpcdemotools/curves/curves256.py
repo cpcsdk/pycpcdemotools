@@ -49,13 +49,13 @@ if __name__ == '__main__':
     values = get_values(exp)
     integers = [int(a) for a in values]
 
-    plt.plot(values, label='real', linestyle=':')
-    plt.plot(integers, label='integer', drawstyle='steps', linewidth=2)
-    plt.xlim([0,256])
-    plt.xlabel('Byte')
-    plt.ylabel('Position')
-    plt.legend()
     try:
+        plt.plot(values, label='real', linestyle=':')
+        plt.plot(integers, label='integer', drawstyle='steps', linewidth=2)
+        plt.xlim([0,256])
+        plt.xlabel('Byte')
+        plt.ylabel('Position')
+        plt.legend()
         plt.show()
     except:
         pass
