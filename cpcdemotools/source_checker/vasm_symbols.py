@@ -93,18 +93,25 @@ def treat_file(fname, _filter=None):
                 value = value[1:-1]
             value = int(value, 0)
         elif -1 != line.find("EXPR("):
+            # Updated for vasm 1.8
             parts = line.split()
             if parts[-2] == 'INTERNAL' and parts[-1] == 'ABS': continue
+            if parts[-2] == 'UNUSED' and parts[-1] == 'ABS': continue
             if parts[-1] == 'INTERNAL': continue
-            if parts[-1] == 'ABS':
-                parts = parts[:-1]
 
-            if 3<=len(parts):
-                label = ".".join(parts[:-1])
-            else:
+
+            expr_idx = 0
+            while parts[expr_idx].find("EXPR(") ==-1:
+                expr_idx += 1
+
+            if expr_idx == 1:
                 label = parts[0]
+            else:
+                label = ".".join(parts[:expr_idx]) 
+
+            expr = parts[expr_idx]
+            value = int(expr[len("EXPR("):expr.find("=")])
             label = label.strip()
-            value = int(parts[-1][len("EXPR("):-1])
         else:
             continue
 
