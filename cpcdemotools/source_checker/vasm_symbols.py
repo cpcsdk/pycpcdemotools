@@ -96,7 +96,6 @@ def treat_file(fname, _filter=None):
             # Updated for vasm 1.8
             parts = line.split()
             if parts[-2] == 'INTERNAL' and parts[-1] == 'ABS': continue
-            if parts[-2] == 'UNUSED' and parts[-1] == 'ABS': continue
             if parts[-1] == 'INTERNAL': continue
 
 
