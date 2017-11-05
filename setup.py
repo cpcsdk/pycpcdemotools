@@ -16,7 +16,6 @@ setup(name='cpcdemotools',
           'cpcdemotools.curves',
           'cpcdemotools.graph',
           'cpcdemotools.screen',
-
       ],
       scripts=[
           'cpcdemotools/source_checker/z80_syntax_checker.py',
@@ -26,7 +25,6 @@ setup(name='cpcdemotools',
  #         'cpcdemotools/graph/extract_pal.py',
           'cpcdemotools/crtc/crtc_transitions_helper.py',
           'cpcdemotools/graph/memorydraw.py'
-    
       ]
      )
 
