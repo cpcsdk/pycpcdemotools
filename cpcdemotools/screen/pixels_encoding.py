@@ -28,13 +28,13 @@ def get_mode0_pixel1_byte_encoded(pen):
 
     byte = 0
 
-    if pen & 1: 
+    if pen & 1:
         byte = byte + (2**6)
-    if pen & 2: 
+    if pen & 2:
         byte = byte + (2**2)
     if pen & 4:
         byte = byte + (2**4)
-    if pen & 8: 
+    if pen & 8:
         byte = byte + (2**0)
 
     return byte
@@ -143,7 +143,7 @@ def get_mode2_pixel7_byte_encoded(pen):
 
 def get_mode0_byte(pen0, pen1):
     """untested"""
-    return get_mode0_pixel0_byte_encoded(pen0) |  get_mode0_pixel1_byte_encoded(pen1) 
+    return get_mode0_pixel0_byte_encoded(pen0) |  get_mode0_pixel1_byte_encoded(pen1)
 
 
 
@@ -168,6 +168,33 @@ def get_mode2_byte(pen0, pen1, pen2, pen3, pen4, pen5, pen6, pen7):
 
 
 
+def get_mode0_pens(byte):
+    """Return pends for byte"""
+    #XXX TODO test
+
+    assert byte < 256
+    pen0 = 0
+    pen1 = 0
+
+    if byte & (2**7):
+        pen0 = pen0 + 1
+    if byte & (2**3):
+        pen0 = pen0 + 2
+    if byte & (2**5):
+        pen0 = pen0 + 4
+    if byte & (2**1):
+        pen0 = pen0 + 8
+
+    if byte & (2**6):
+        pen1 = pen1 + 1
+    if byte & (2**2):
+        pen1 = pen1 + 2
+    if byte & (2**4):
+        pen1 = pen1 + 4
+    if byte & (2**0):
+        pen1 = pen1 + 8
+
+    return pen0, pen1
 
 
 
