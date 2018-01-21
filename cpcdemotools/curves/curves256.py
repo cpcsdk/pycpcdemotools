@@ -12,6 +12,7 @@ Parameters
 import matplotlib.pyplot as plt
 from numpy import pi,sin, cos
 import sys
+import os
 
 def scale_input(i):
     """Scale the input in order to move in range [0;255] and not [0;360]."""
@@ -49,16 +50,17 @@ if __name__ == '__main__':
     values = get_values(exp)
     integers = [int(a) for a in values]
 
-    try:
-        plt.plot(values, label='real', linestyle=':')
-        plt.plot(integers, label='integer', drawstyle='steps', linewidth=2)
-        plt.xlim([0,256])
-        plt.xlabel('Byte')
-        plt.ylabel('Position')
-        plt.legend()
-        plt.show()
-    except:
-        pass
+    if 'DISPLAY' in os.environ:
+        try:
+            plt.plot(values, label='real', linestyle=':')
+            plt.plot(integers, label='integer', drawstyle='steps', linewidth=2)
+            plt.xlim([0,256])
+            plt.xlabel('Byte')
+            plt.ylabel('Position')
+            plt.legend()
+            plt.show()
+        except:
+            pass
 
     validate_values(integers)
     build_z80(exp, integers)
