@@ -1,3 +1,5 @@
+There is no need anymore to use this project. https://github.com/cpcsdk/rust.cpclib is a better fit
+
 =====================
 Python CPC demo tools
 =====================
